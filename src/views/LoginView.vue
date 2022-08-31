@@ -1,7 +1,7 @@
 <template>
   <div class="row min-vh-100 justify-content-center align-items-center">
     <div class="col-lg-4">
-      <h3>Register Form</h3>
+      <h3>Login Form</h3>
       <hr>
       <form action="" @submit.prevent="login" ref="loginFrom">
 
@@ -47,6 +47,9 @@ export default {
           .then(json => {
             console.log(json)
             if(json.success === true){
+
+              localStorage.setItem('auth',JSON.stringify(json.auth));
+              localStorage.setItem('token',json.token);
 
               this.$store.dispatch('setAuth',json.auth);
               this.$store.dispatch('setToken',json.token);

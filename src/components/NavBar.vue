@@ -63,6 +63,8 @@ export default {
       }).then(res => res.json())
           .then(json => {
              if(json.success === true){
+               localStorage.removeItem('auth');
+               localStorage.removeItem('token');
                this.$store.dispatch('logout')
                this.$router.push("login");
              }

@@ -5,6 +5,20 @@ import LoginView from "@/views/LoginView";
 import DashboardView from "@/views/DashboardView";
 import store from "@/store";
 
+function alreadyLogin(to,from,next){
+  if(store.state.auth){
+    return next("/dashboard")
+  }
+  return next()
+}
+
+function needAuth(to,from,next){
+  if(store.state.auth === null){
+    return next("/login")
+  }
+  return next()
+}
+
 const routes = [
   {
     path: '/',
@@ -22,23 +36,20 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    component: RegisterView
+    component: RegisterView,
+    beforeEnter: [alreadyLogin]
   },
   {
     path: '/login',
     name: 'login',
-    component: LoginView
+    component: LoginView,
+    beforeEnter : [alreadyLogin]
   },
   {
     path: '/dashboard',
     name: 'dashboard',
     component: DashboardView,
-    beforeEnter:(to,from,next) => {
-      if(store.state.auth === null){
-        return next("/login")
-      }
-      return next()
-    }
+    beforeEnter:[needAuth]
   },
 ]
 
