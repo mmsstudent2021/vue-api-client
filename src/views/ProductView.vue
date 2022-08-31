@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Dashboard Page</h1>
+    <h1>Product List</h1>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. At atque beatae culpa cumque cupiditate delectus doloremque doloribus eaque esse iusto libero, minus nam nemo neque odit porro reprehenderit sapiente sint.
     </p>

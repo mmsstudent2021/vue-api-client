@@ -4,6 +4,8 @@ import RegisterView from "@/views/RegisterView";
 import LoginView from "@/views/LoginView";
 import DashboardView from "@/views/DashboardView";
 import store from "@/store";
+import ProductView from "@/views/ProductView";
+import ProductCreateView from "@/views/ProductCreateView";
 
 function alreadyLogin(to,from,next){
   if(store.state.auth){
@@ -49,6 +51,18 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: DashboardView,
+    beforeEnter:[needAuth]
+  },
+  {
+    path: '/product',
+    name: 'product',
+    component: ProductView,
+    beforeEnter:[needAuth]
+  },
+  {
+    path: '/product/create',
+    name: 'product.create',
+    component: ProductCreateView,
     beforeEnter:[needAuth]
   },
 ]
