@@ -24,11 +24,19 @@
           <template v-else>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Product
+              </a>
+              <ul class="dropdown-menu">
+                <li><router-link class="dropdown-item" to="/product/create">Create Product</router-link></li>
+                <li><router-link class="dropdown-item" to="/product">Product List</router-link></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ auth.name }}
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><router-link class="dropdown-item" to="/dashboard">Dashboard</router-link></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#" @click="logout()">Logout</a></li>
               </ul>
@@ -55,6 +63,10 @@ export default {
   },
   methods: {
     logout() {
+
+      localStorage.removeItem('auth');
+      localStorage.removeItem('token');
+
       let headers = new Headers();
       headers.append("Authorization", "Bearer "+this.token);
       fetch(this.getUrl('/logout'),{
@@ -63,12 +75,11 @@ export default {
       }).then(res => res.json())
           .then(json => {
              if(json.success === true){
-               localStorage.removeItem('auth');
-               localStorage.removeItem('token');
+
                this.$store.dispatch('logout')
-               this.$router.push("/login");
+
              }
-          })
+          }).finally(()=>this.$router.push("/login"))
 
     }
   },

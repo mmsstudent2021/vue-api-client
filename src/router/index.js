@@ -6,6 +6,7 @@ import DashboardView from "@/views/DashboardView";
 import store from "@/store";
 import ProductView from "@/views/ProductView";
 import ProductCreateView from "@/views/ProductCreateView";
+import ProductEditView from "@/views/ProductEditView";
 
 function alreadyLogin(to,from,next){
   if(store.state.auth){
@@ -63,6 +64,12 @@ const routes = [
     path: '/product/create',
     name: 'product.create',
     component: ProductCreateView,
+    beforeEnter:[needAuth]
+  },
+  {
+    path: '/product/edit/:id',
+    name: 'product.edit',
+    component: ProductEditView,
     beforeEnter:[needAuth]
   },
 ]
