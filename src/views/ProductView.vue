@@ -41,10 +41,15 @@
           </tr>
           </tbody>
         </table>
-        <Pagination
-            v-if="rows.meta"
-            @fetchLink="fetchProducts"
-            :links="rows.meta.links" />
+        <div class="d-flex justify-content-between">
+          <Pagination
+              v-if="rows.meta"
+              @fetchLink="fetchProducts"
+              :links="rows.meta.links" />
+          <div class="w-25">
+            <Search @search="search" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -55,9 +60,10 @@ import axios from "axios";
 import {mapGetters} from "vuex";
 import Pagination from "@/components/Pagination";
 import Swal from "sweetalert2";
+import Search from "@/components/Search";
 
 export default {
-  components: {Pagination},
+  components: {Search, Pagination},
   data() {
     return {
       rows: {}
@@ -69,6 +75,10 @@ export default {
     ])
   },
   methods: {
+    search(keyword){
+      console.log(keyword)
+      this.fetchProducts(this.getUrl("/products?keyword="+keyword))
+    },
     showToast(icon,message){
 
       const Toast = Swal.mixin({

@@ -47,6 +47,7 @@ import Input from "@/components/Input";
 import {mapGetters} from "vuex";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {debounce, throttle} from "lodash";
 export default {
   data() {
     return {
@@ -80,7 +81,7 @@ export default {
         title: message
       })
     },
-    addProduct() {
+    addProduct:debounce(function (){
       this.isLoading = true
       let formData = new FormData(this.$refs.productCreate);
       axios.post(this.getUrl('/products'),formData)
@@ -103,7 +104,7 @@ export default {
             }
           })
           .finally(_=>this.isLoading = false)
-    }
+    },500)
   },
 }
 </script>
